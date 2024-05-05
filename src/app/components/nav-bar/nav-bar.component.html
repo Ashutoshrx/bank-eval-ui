@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
     <span><a mat-icon-button routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a></span>
     <span class="exmaple-spacer"></span>
-    <a mat-raised-button routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a>
+    <a *ngIf="!loggedIn" mat-raised-button routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a>
+    <a *ngIf="loggedIn" mat-button>Welcome {{user}}!</a>
+    <a *ngIf="loggedIn" mat-stroked-button color="warn" (click)="logOutUser()">Log out</a>
 </mat-toolbar>  

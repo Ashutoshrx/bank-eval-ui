@@ -12,21 +12,20 @@ export class LoginServiceService {
     return this.http.post(`${this.url}/auth/login`, credentials,{responseType: 'text'});
   }
 
-  loginUser(token: any) {
-    localStorage.setItem("token", token);
-    return true;
+  loginUser(token: any):void {
+    localStorage.setItem("token", token)
   }
   isLoggedIn(): boolean {
     var token = localStorage.getItem("token");
-    if (token == undefined || token == null || token == '') {
+    if (token == undefined || token == null || token == '' || token=='undefined') {
       return false;
     } else {
       return true;
     }
   }
-  logoutUser() {
+  logoutUser():void {
+    console.log("Token has been removed");
     localStorage.removeItem("token");
-    return true;
   }
 
   getToken() {

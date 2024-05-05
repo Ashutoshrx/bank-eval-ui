@@ -5,8 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginServiceService } from '../../services/login-service.service';
-// import { HttpClient } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-login',
@@ -16,7 +14,6 @@ import { LoginServiceService } from '../../services/login-service.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
   constructor(private loginServiceService: LoginServiceService) { }
 
   credentials = {
@@ -31,8 +28,11 @@ export class LoginComponent {
     if (this.credentials.initiatorName != '' && this.credentials.password != '' && this.credentials.contactNumber != '') {
       console.log("We need to send to server");
       this.loginServiceService.doLogin(this.credentials).subscribe({
-        next: (response) => {
-          console.log(response);
+        next: (response: any) => {
+          console.log(response.token);
+          this.loginServiceService.loginUser(response);
+          window.location.href = '/dashboard';
+          console.log(localStorage.getItem('token'));
         },
         error: (err) => {
           alert('There was an error in retrieving data from the server:');
@@ -44,7 +44,4 @@ export class LoginComponent {
 
     }
   };
-}
-function next(value: Object): void {
-  throw new Error('Function not implemented.');
 }
